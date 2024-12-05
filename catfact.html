@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button {
+            width: 100px;
+            height: 50px;
+            color: azure;
+            background-color: black;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Get random cat fact</h1>
+    <button id="getFact" onclick="getCatFact()">Generate Fact</button>
+    <div id="catFact"></div>
+    <script>
+        async function getCatFact() {
+            const button = 
+            document.getElementById('getFact');
+            const catFactDiv = 
+            document.getElementById('catFact');
+
+            button.disabled = true
+            button.textContent = 'Loading....'
+
+            try {
+                const response = await fetch ('https://catfact.ninja/fact');
+                const data = await response.json();
+                catFactDiv.textContent = data.fact ;
+            }  catch(error){ 
+                catFactDiv.textContent = 'Error fetching cat fact!'; 
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Generate Fact';
+            }
+        }
+    </script>
+</body>
+</html>
